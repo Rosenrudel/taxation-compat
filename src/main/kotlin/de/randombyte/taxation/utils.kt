@@ -21,10 +21,5 @@ val currency: Currency = generalConfig.currency.let {
 
 val currentMillis: Long get() = System.currentTimeMillis()
 
-fun <K1, K2, V> Map<K1, V>.mapKeysNotNull(mapper: (K1) -> K2?): Map<K2, V> = mapNotNull { (k1, v) ->
-    val k2 = mapper(k1) ?: return@mapNotNull null // continue
-    return@mapNotNull k2 to v
-}.toMap()
-
 fun String.deserializeDuration() = SimpleDurationTypeSerializer.deserialize(this)
 fun Duration.serialize(outputMillis: Boolean = true) = SimpleDurationTypeSerializer.serialize(this, outputMillis)
