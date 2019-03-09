@@ -4,4 +4,6 @@ This plugin can collect taxes on the income of players. Income and tax calculati
 
 ### [Download](https://github.com/randombyte-developer/taxation/releases)
 
+### [Wiki](https://github.com/randombyte-developer/taxation/wiki)
+
 ### [Get help on Discord](https://discord.gg/ZHZ9Z8T)
