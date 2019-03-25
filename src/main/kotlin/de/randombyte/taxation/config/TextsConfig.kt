@@ -4,6 +4,7 @@ import de.randombyte.taxation.config.TextsConfig.Placeholders.CURRENCY_SYMBOL
 import de.randombyte.taxation.config.TextsConfig.Placeholders.REMAINING_DURATION
 import de.randombyte.taxation.config.TextsConfig.Placeholders.SESSION_DURATION
 import de.randombyte.taxation.config.TextsConfig.Placeholders.SESSION_INCOME
+import de.randombyte.taxation.config.TextsConfig.Placeholders.TAX_HISTORY_TOTAL
 import de.randombyte.taxation.config.TextsConfig.Placeholders.TAX_PERCENTAGE
 import de.randombyte.taxation.config.TextsConfig.Placeholders.TAX_TOTAL
 import ninja.leaping.configurate.objectmapping.Setting
@@ -18,13 +19,15 @@ class TextsConfig(
                 "Remaining session time: $REMAINING_DURATION",
                 "Income for this session: $SESSION_INCOME $CURRENCY_SYMBOL",
                 "Current tax rate: $TAX_PERCENTAGE%",
-                "Current tax due: $TAX_TOTAL $CURRENCY_SYMBOL"
+                "Current tax due: $TAX_TOTAL $CURRENCY_SYMBOL",
+                "Total tax payed in the past: $TAX_HISTORY_TOTAL $CURRENCY_SYMBOL"
         ),
         @Setting("broadcast") val broadcast: String = "&eThe tax session has ended and a total of $TAX_TOTAL $CURRENCY_SYMBOL has been collected!"
 ) {
     object Placeholders {
         val TAX_PERCENTAGE = "tax_percentage".asPlaceholder
         val TAX_TOTAL = "tax_total".asPlaceholder
+        val TAX_HISTORY_TOTAL = "tax_history_total".asPlaceholder
         val SESSION_INCOME = "session_income".asPlaceholder
         val SESSION_DURATION = "session_duration".asPlaceholder
         val REMAINING_DURATION = "remaining_duration".asPlaceholder

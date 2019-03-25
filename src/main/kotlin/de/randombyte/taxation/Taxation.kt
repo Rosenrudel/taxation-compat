@@ -56,7 +56,7 @@ class Taxation @Inject constructor(
     companion object {
         const val ID = "taxation"
         const val NAME = "Taxation"
-        const val VERSION = "1.0.0"
+        const val VERSION = "1.1.0"
         const val AUTHOR = "RandomByte"
 
         const val NUCLEUS_ID = "nucleus"

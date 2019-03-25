@@ -3,6 +3,7 @@ package de.randombyte.taxation
 import de.randombyte.kosp.extensions.*
 import de.randombyte.taxation.config.PersistenceDatabase
 import de.randombyte.taxation.config.PersistenceDatabase.SerializedBigDecimal.Companion.toSerialized
+import de.randombyte.taxation.config.StatisticsDatabase.Statistics
 import de.randombyte.taxation.config.TextsConfig.Placeholders
 import io.github.nucleuspowered.nucleus.api.NucleusAPI
 import org.spongepowered.api.Sponge
@@ -69,6 +70,8 @@ class Session(
         val taxAccount = economyService.getOrCreateAccount(generalConfig.taxAccount)
                 .orElseThrow { RuntimeException("Couldn't get the tax account!") }
 
+        val taxStatistics = statisticsDatabase.players.toMutableMap()
+
         val totalTaxes = balances.keys.mapNotNull { accountId ->
             val account = accountId.asAccount()
 
@@ -81,6 +84,9 @@ class Session(
                 logger.error("Couldn't transfer tax $tax of account ${account.uniqueId} to the tax account!")
                 return@mapNotNull null // continue
             }
+
+            // statistics
+            taxStatistics[accountId] = (taxStatistics[accountId] ?: Statistics()).apply { totalTaxPayed += tax }
 
             // informing the user
             val user = account.uniqueId.getUser() ?: throw java.lang.RuntimeException("No player associated with UUID ${account.uniqueId}!")
@@ -101,6 +107,8 @@ class Session(
 
             return@mapNotNull tax
         }
+
+        Taxation.INSTANCE.configAccessor.statisticsDatabase.save(statisticsDatabase.copy(players = taxStatistics))
 
         if (texts.broadcast.isNotBlank()) {
             var totalSessionTax = BigDecimal(0)
