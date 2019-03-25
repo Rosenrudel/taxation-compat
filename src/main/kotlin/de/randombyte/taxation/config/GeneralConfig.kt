@@ -22,6 +22,6 @@ class GeneralConfig (
                 100_000 to 5.0
         ),
 
-        @Setting("session-end-commands", comment = "Commands that should be run by when a session has stopped.")
+        @Setting("session-end-commands", comment = "Commands that should be run when a session has stopped.")
         val endTriggerCommands: List<String> = emptyList()
 )
