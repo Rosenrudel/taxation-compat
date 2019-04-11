@@ -32,7 +32,7 @@ class SessionInfoCommand : CommandExecutor {
 
             val remainingDurationString = session.remainingDuration.serialize(outputMillis = false)
             val income = session.calculateIncome(target.uniqueId)
-            val percentage = session.calculateTaxPercentage(income.toDouble())
+            val percentage = if (target.hasPermission(Taxation.TAX_EXEMPT_PERMISSION)) 0.0 else session.calculateTaxPercentage(income.toDouble())
             val taxTotal = session.calculateTaxTotal(income.toDouble(), percentage)
             val taxTotalHistory = statisticsDatabase.players[target.uniqueId]?.totalTaxPayed ?: BigDecimal.ZERO
 

@@ -75,6 +75,10 @@ class Session(
         val totalTaxes = balances.keys.mapNotNull { accountId ->
             val account = accountId.asAccount()
 
+            if (accountId.getUser()?.hasPermission(Taxation.TAX_EXEMPT_PERMISSION) == true) {
+                return@mapNotNull BigDecimal.ZERO
+            }
+
             // doing the math
             val income = calculateIncome(accountId)
             val percentage = calculateTaxPercentage(income.toDouble())
@@ -150,7 +154,4 @@ class Session(
                 sessionDuration = duration.serialize(),
                 previousBalances = balances.mapValues { (_, bigDecimal) -> bigDecimal.toSerialized() })
     }
-
-    private fun UUID.asAccount() = economyService.getOrCreateAccount(this)
-            .orElseThrow { RuntimeException("Couldn't get or create account $this!") }
 }

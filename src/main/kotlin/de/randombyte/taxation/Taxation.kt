@@ -10,6 +10,7 @@ import de.randombyte.taxation.Taxation.Companion.ID
 import de.randombyte.taxation.Taxation.Companion.NAME
 import de.randombyte.taxation.Taxation.Companion.NUCLEUS_ID
 import de.randombyte.taxation.Taxation.Companion.VERSION
+import de.randombyte.taxation.commands.ClearSessionCommand
 import de.randombyte.taxation.commands.SessionInfoCommand
 import de.randombyte.taxation.config.ConfigAccessor
 import de.randombyte.taxation.config.PersistenceDatabase
@@ -56,12 +57,13 @@ class Taxation @Inject constructor(
     companion object {
         const val ID = "taxation"
         const val NAME = "Taxation"
-        const val VERSION = "1.1.0"
+        const val VERSION = "1.2.0"
         const val AUTHOR = "RandomByte"
 
         const val NUCLEUS_ID = "nucleus"
 
         const val ROOT_PERMISSION = ID
+        const val TAX_EXEMPT_PERMISSION = "$ROOT_PERMISSION.taxes.exempt"
 
         val USER_ARG = "user".toText()
 
@@ -139,6 +141,11 @@ class Taxation @Inject constructor(
 
         Sponge.getCommandManager().register(this, CommandSpec.builder()
                 .child(CommandSpec.builder()
+                        .child(CommandSpec.builder()
+                                .permission("$ROOT_PERMISSION.session.clean")
+                                .arguments(user(USER_ARG.toText()))
+                                .executor(ClearSessionCommand())
+                                .build(), "clear")
                         .child(CommandSpec.builder()
                                 .permission("$ROOT_PERMISSION.session.reset")
                                 .executor { src, _ ->

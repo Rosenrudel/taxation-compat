@@ -8,7 +8,9 @@ import de.randombyte.taxation.config.TextsConfig
 import org.slf4j.Logger
 import org.spongepowered.api.service.economy.Currency
 import org.spongepowered.api.service.economy.EconomyService
+import org.spongepowered.api.service.economy.account.UniqueAccount
 import java.time.Duration
+import java.util.*
 
 val generalConfig: GeneralConfig get() = Taxation.INSTANCE.configAccessor.general.get()
 val statisticsDatabase: StatisticsDatabase get() = Taxation.INSTANCE.configAccessor.statisticsDatabase.get()
@@ -20,6 +22,8 @@ val economyService: EconomyService get() = EconomyService::class.getServiceOrFai
 val currency: Currency = generalConfig.currency.let {
     economyService.getCurrencyById(it) ?: throw RuntimeException("Couldn't find currency $it!")
 }
+fun UUID.asAccount(): UniqueAccount = economyService.getOrCreateAccount(this)
+        .orElseThrow { RuntimeException("Couldn't get or create account $this!") }
 
 val currentMillis: Long get() = System.currentTimeMillis()
 
