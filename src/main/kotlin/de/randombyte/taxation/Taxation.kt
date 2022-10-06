@@ -1,9 +1,7 @@
 package de.randombyte.taxation
 
 import com.google.inject.Inject
-import de.randombyte.kosp.extensions.getPlayer
 import de.randombyte.kosp.extensions.green
-import de.randombyte.kosp.extensions.sendTo
 import de.randombyte.kosp.extensions.toText
 import de.randombyte.taxation.Taxation.Companion.AUTHOR
 import de.randombyte.taxation.Taxation.Companion.ID
@@ -14,7 +12,6 @@ import de.randombyte.taxation.commands.ClearSessionCommand
 import de.randombyte.taxation.commands.SessionInfoCommand
 import de.randombyte.taxation.config.ConfigAccessor
 import de.randombyte.taxation.config.PersistenceDatabase
-import org.apache.commons.lang3.RandomUtils
 import org.bstats.sponge.Metrics2
 import org.slf4j.Logger
 import org.spongepowered.api.Sponge
@@ -22,7 +19,6 @@ import org.spongepowered.api.command.CommandResult
 import org.spongepowered.api.command.args.GenericArguments.*
 import org.spongepowered.api.command.spec.CommandSpec
 import org.spongepowered.api.config.ConfigDir
-import org.spongepowered.api.entity.living.player.Player
 import org.spongepowered.api.event.Listener
 import org.spongepowered.api.event.cause.Cause
 import org.spongepowered.api.event.cause.EventContext
@@ -31,10 +27,8 @@ import org.spongepowered.api.event.filter.Getter
 import org.spongepowered.api.event.game.GameReloadEvent
 import org.spongepowered.api.event.game.state.GameInitializationEvent
 import org.spongepowered.api.event.game.state.GameStoppingServerEvent
-import org.spongepowered.api.event.network.ClientConnectionEvent
 import org.spongepowered.api.plugin.Dependency
 import org.spongepowered.api.plugin.Plugin
-import org.spongepowered.api.scheduler.Task
 import org.spongepowered.api.service.economy.account.UniqueAccount
 import org.spongepowered.api.service.economy.transaction.ResultType
 import org.spongepowered.api.service.economy.transaction.TransactionResult
@@ -42,7 +36,6 @@ import org.spongepowered.api.service.economy.transaction.TransactionTypes.*
 import java.nio.file.Path
 import java.text.DecimalFormat
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 @Plugin(id = ID,
         name = NAME,
