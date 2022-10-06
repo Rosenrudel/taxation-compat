@@ -44,8 +44,7 @@ import java.util.*
         dependencies = [(Dependency(id = NUCLEUS_ID, optional = true))])
 class Taxation @Inject constructor(
         val logger: Logger,
-        @ConfigDir(sharedRoot = false) configPath: Path,
-        private val metrics: Metrics2
+        @ConfigDir(sharedRoot = false) configPath: Path
 ) {
     companion object {
         const val ID = "taxation"
