@@ -2,7 +2,6 @@ plugins {
     id "org.jetbrains.kotlin.jvm" version "1.3.20"
     id "org.jetbrains.kotlin.kapt" version "1.3.20"
     id "com.github.johnrengelman.shadow" version "4.0.3"
-    id "flavor.pie.promptsign" version "1.0.2"
     id "com.qixalite.spongestart2" version "4.0.0"
 }
 
@@ -44,7 +43,6 @@ shadowJar {
     classifier = null // Remove '-all' suffix from output file name
 }
 build.dependsOn shadowJar
-signArchives.dependsOn shadowJar
 
 compileKotlin {
     kotlinOptions {
