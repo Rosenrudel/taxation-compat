@@ -12,7 +12,6 @@ import de.randombyte.taxation.commands.ClearSessionCommand
 import de.randombyte.taxation.commands.SessionInfoCommand
 import de.randombyte.taxation.config.ConfigAccessor
 import de.randombyte.taxation.config.PersistenceDatabase
-import org.bstats.sponge.Metrics2
 import org.slf4j.Logger
 import org.spongepowered.api.Sponge
 import org.spongepowered.api.command.CommandResult
@@ -40,7 +39,7 @@ import java.util.*
 @Plugin(id = ID,
         name = NAME,
         version = VERSION,
-        authors = [AUTHOR],
+        authors = [AUTHOR, "TAINCER"],
         dependencies = [(Dependency(id = NUCLEUS_ID, optional = true))])
 class Taxation @Inject constructor(
         val logger: Logger,
@@ -49,7 +48,7 @@ class Taxation @Inject constructor(
     companion object {
         const val ID = "taxation"
         const val NAME = "Taxation"
-        const val VERSION = "1.2.0"
+        const val VERSION = "1.3.0"
         const val AUTHOR = "RandomByte"
 
         const val NUCLEUS_ID = "nucleus"
