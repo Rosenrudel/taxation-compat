@@ -85,13 +85,6 @@ class Taxation @Inject constructor(
         restoreSessionFromPersistence()
         registerCommands()
 
-        if (needsMotivationalSpeech()) {
-            Task.builder()
-                    .delay(RandomUtils.nextLong(80, 130), TimeUnit.SECONDS)
-                    .execute { -> Messages.motivationalSpeech.forEach { it.sendTo(Sponge.getServer().console) } }
-                    .submit(this)
-        }
-
         logger.info("Loaded $NAME: $VERSION")
     }
 
@@ -195,25 +188,4 @@ class Taxation @Inject constructor(
             save(PersistenceDatabase()) // save empty config, only write back to it when shutting down the server
         }
     }
-
-    private val metricsNoteSent = mutableSetOf<UUID>()
-
-    @Listener
-    fun onPlayerJoin(event: ClientConnectionEvent.Join) {
-        val uuid = event.targetEntity.uniqueId
-        if (needsMotivationalSpeech(event.targetEntity)) {
-            Task.builder()
-                    .delay(RandomUtils.nextLong(10, 50), TimeUnit.SECONDS)
-                    .execute { ->
-                        val player = uuid.getPlayer() ?: return@execute
-                        metricsNoteSent += uuid
-                        Messages.motivationalSpeech.forEach { it.sendTo(player) }
-                    }
-                    .submit(this)
-        }
-    }
-
-    private fun needsMotivationalSpeech(player: Player? = null) = configAccessor.general.get().enableMetricsMessages &&
-            !Sponge.getMetricsConfigManager().areMetricsEnabled(this) &&
-            (player == null || player.uniqueId !in metricsNoteSent && player.hasPermission("nucleus.mute.base")) // also passes OPs without Nucleus
 }
