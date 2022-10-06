@@ -166,6 +166,8 @@ class Taxation @Inject constructor(
     private fun restoreSessionFromPersistence() {
         if (session?.isRunning == true) throw IllegalStateException("A session is already running!")
 
+        return
+
         with(configAccessor.persistenceDatabase) {
             val persistence = get()
 
