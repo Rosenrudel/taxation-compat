@@ -2,8 +2,6 @@ package de.randombyte.taxation.commands
 
 import de.randombyte.kosp.extensions.green
 import de.randombyte.taxation.Taxation
-import de.randombyte.taxation.asAccount
-import de.randombyte.taxation.currency
 import org.spongepowered.api.command.CommandResult
 import org.spongepowered.api.command.CommandSource
 import org.spongepowered.api.command.args.CommandContext
@@ -14,7 +12,7 @@ class ClearSessionCommand : CommandExecutor {
     override fun execute(src: CommandSource, args: CommandContext): CommandResult {
         val user = args.getOne<User>(Taxation.USER_ARG).get()
 
-        Taxation.INSTANCE.session?.balances?.set(user.uniqueId, user.uniqueId.asAccount().getBalance(currency))
+        Taxation.INSTANCE.database!!.deletePlayer(user.uniqueId)
 
         src.sendMessage("Cleared ${user.name}'s session!".green())
 
