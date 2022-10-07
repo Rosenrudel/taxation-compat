@@ -5,7 +5,9 @@ import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable
 
 @ConfigSerializable
 class GeneralConfig(
-    @Setting("session-duration") val sessionDuration: String = "72h",
+    @Setting("session-duration", comment = "Time in Minutes") val sessionDuration: Int = 60 * 72,
+    @Setting("connection-jdbc", comment = "Example: jdbc:mariadb://username:password@ip:port/database")
+    val connectionJdbc: String = "",
     @Setting("currency") val currency: String = "economylite:coin",
     @Setting("virtual-tax-account") val taxAccount: String = "<put your virtual account in here>",
     @Setting("taxation-rates") val rates: Map<Int, Double> = emptyMap(),
