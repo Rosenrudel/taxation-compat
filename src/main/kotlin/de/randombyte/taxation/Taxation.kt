@@ -72,7 +72,7 @@ class Taxation @Inject constructor(
     var database: Database? = null
 
     @Listener
-    fun onInit(event: GameInitializationEvent) {
+    fun onInit(@Suppress("UNUSED_PARAMETER") event: GameInitializationEvent) {
         configAccessor.reloadAll()
         registerCommands()
 
@@ -88,7 +88,7 @@ class Taxation @Inject constructor(
     }
 
     @Listener
-    fun onReload(event: GameReloadEvent) {
+    fun onReload(@Suppress("UNUSED_PARAMETER") event: GameReloadEvent) {
         configAccessor.reloadAll()
 
         logger.info("Reloaded!")
@@ -96,7 +96,7 @@ class Taxation @Inject constructor(
 
     @Listener
     fun onMoneyTransaction(
-        event: EconomyTransactionEvent,
+        @Suppress("UNUSED_PARAMETER") event: EconomyTransactionEvent,
         @Getter("getTransactionResult") transactionResult: TransactionResult
     ) {
         if (
