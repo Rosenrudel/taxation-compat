@@ -12,17 +12,17 @@ import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable
 
 @ConfigSerializable
 class TextsConfig(
-        @Setting("taxed") val taxed: String =
-                "&eYou have been taxed $TAX_PERCENTAGE% totalling $TAX_TOTAL $CURRENCY_SYMBOL. You made a total of $SESSION_INCOME $CURRENCY_SYMBOL over $SESSION_DURATION.",
-        @Setting("info") val info: List<String> = listOf(
-                "&2==== Tax info ====",
-                "Remaining session time: $REMAINING_DURATION",
-                "Income for this session: $SESSION_INCOME $CURRENCY_SYMBOL",
-                "Current tax rate: $TAX_PERCENTAGE%",
-                "Current tax due: $TAX_TOTAL $CURRENCY_SYMBOL",
-                "Total tax payed in the past: $TAX_HISTORY_TOTAL $CURRENCY_SYMBOL"
-        ),
-        @Setting("broadcast") val broadcast: String = "&eThe tax session has ended and a total of $TAX_TOTAL $CURRENCY_SYMBOL has been collected!"
+    @Setting("taxed") val taxed: String =
+        "&eYou have been taxed $TAX_PERCENTAGE% totalling $TAX_TOTAL $CURRENCY_SYMBOL. You made a total of $SESSION_INCOME $CURRENCY_SYMBOL over $SESSION_DURATION.",
+    @Setting("info") val info: List<String> = listOf(
+        "&2==== Tax info ====",
+        "Remaining session time: $REMAINING_DURATION",
+        "Income for this session: $SESSION_INCOME $CURRENCY_SYMBOL",
+        "Current tax rate: $TAX_PERCENTAGE%",
+        "Current tax due: $TAX_TOTAL $CURRENCY_SYMBOL",
+        "Total tax payed in the past: $TAX_HISTORY_TOTAL $CURRENCY_SYMBOL"
+    ),
+    @Setting("broadcast") val broadcast: String = "&eThe tax session has ended and a total of $TAX_TOTAL $CURRENCY_SYMBOL has been collected!"
 ) {
     object Placeholders {
         val TAX_PERCENTAGE = "tax_percentage".asPlaceholder
